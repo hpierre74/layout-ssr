@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Route } from 'react-router-dom';
+import { Route } from '@reach/router';
 import { push } from 'connected-react-router';
 import Client from '../pages/client/client.connector';
 

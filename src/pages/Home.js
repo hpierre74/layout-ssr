@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import CounterApp from "../modules/counter/counter.connector";
+import React from 'react';
+import { Link } from '@reach/router';
 
 const Home = () => {
   return (
@@ -8,15 +7,11 @@ const Home = () => {
       <div>
         <ul>
           <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
+            <Link to="/about">Home</Link>
           </li>
         </ul>
       </div>
       <h1>Home</h1>
-      <CounterApp />
     </div>
   );
 };
