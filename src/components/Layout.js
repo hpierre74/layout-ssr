@@ -1,15 +1,15 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import SearchAppBar from "./AppBar";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import SearchAppBar from './AppBar';
 
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2)
-  }
+    paddingBottom: theme.spacing(2),
+  },
 });
 
 const Layout = props => {
@@ -24,8 +24,13 @@ const Layout = props => {
   );
 };
 
+Layout.defaultProps = {
+  children: null,
+};
+
 Layout.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.element,
 };
 
 export default withStyles(styles)(Layout);

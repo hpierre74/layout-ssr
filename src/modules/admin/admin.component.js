@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
