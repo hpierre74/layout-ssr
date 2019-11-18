@@ -6,7 +6,6 @@ import { StaticRouter } from 'react-router-dom';
 
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles';
 import serialize from 'serialize-javascript';
-// import qs from 'qs';
 
 import { Capture } from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
@@ -14,7 +13,6 @@ import stats from '../build/react-loadable.json';
 
 import App from './App';
 import configureStore from './store/configureStore';
-// import { fetchCounter } from './api/counter';
 import theme from './utils/theme';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);

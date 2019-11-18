@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Loadable from 'react-loadable';
 import CssBaseline from '@material-ui/core/CssBaseline';
+
 import Layout from './components/Layout';
 import NotFound from './pages/NotFound';
 
 import './utils/icons';
-import Loadable from 'react-loadable';
 
 const Home = Loadable({
   loader: () => import('./pages/Home'),
