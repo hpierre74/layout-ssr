@@ -1,5 +1,7 @@
 const { GenerateSW } = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
+
 const path = require('path');
 
 module.exports = {
@@ -9,6 +11,9 @@ module.exports = {
           ...config,
           plugins: [
             ...config.plugins,
+            new ReactLoadablePlugin({
+              filename: './build/react-loadable.json',
+            }),
             new GenerateSW({
               clientsClaim: true,
               skipWaiting: true,

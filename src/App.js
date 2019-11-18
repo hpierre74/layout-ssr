@@ -2,12 +2,25 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import About from './pages/About';
 import NotFound from './pages/NotFound';
-import CounterApp from './modules/counter/counter.connector';
 
 import './utils/icons';
+import Loadable from 'react-loadable';
+
+const Home = Loadable({
+  loader: () => import('./pages/Home'),
+  loading: () => null,
+});
+
+const About = Loadable({
+  loader: () => import('./pages/About'),
+  loading: () => null,
+});
+
+const CounterApp = Loadable({
+  loader: () => import('./modules/counter/counter.connector'),
+  loading: () => null,
+});
 
 const App = () => (
   <Fragment>
