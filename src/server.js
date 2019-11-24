@@ -1,6 +1,5 @@
 import path from 'path';
 import express from 'express';
-import * as admin from 'firebase-admin';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
@@ -10,24 +9,22 @@ import { html as htmlTemplate, oneLineTrim } from 'common-tags';
 
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles';
 import serialize from 'serialize-javascript';
+import compression from 'compression';
 
 import App from './App';
 import configureStore from './store/configureStore';
 import { createTheme, getStoredTheme } from './styles/theme';
-
-const serviceAccount = require('../gsa_key.json');
-
-if (admin.apps.length === 0) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.RAZZLE_SECRET_FIREBASE_DB,
-  });
-}
+import { preloadState } from './store/preloadState';
 
 const server = express();
 
 server
   .disable('x-powered-by')
+  .use(
+    compression(path.join(__dirname), {
+      enableBrotli: true,
+    }),
+  )
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', async (req, res) => {
     try {
@@ -36,14 +33,7 @@ server
         entrypoints: ['client'],
       });
 
-      const appConfig = await admin
-        .database()
-        .ref('public/config')
-        .once('value', snap => snap.val());
-
-      const config = appConfig.val();
-
-      const preloadedState = { config };
+      const preloadedState = await preloadState();
       const { store } = configureStore(preloadedState, req.url);
       const finalState = store.getState();
 
