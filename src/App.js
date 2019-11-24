@@ -5,8 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Layout from './components/Layout';
 
-import './utils/icons';
-
 const Home = loadable(() => import('./pages/Home'));
 const About = loadable(() => import('./pages/About'));
 
