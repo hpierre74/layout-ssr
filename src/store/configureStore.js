@@ -1,15 +1,28 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { createReduxHistoryContext, reachify } from 'redux-first-history';
+import { createMemoryHistory, createBrowserHistory } from 'history';
 
-import rootReducer from './reducers';
+import applyRootReducer from './reducers';
+
+const createHistory = pathname =>
+  typeof window === 'undefined' ? createMemoryHistory({ initialEntries: [pathname] }) : createBrowserHistory();
 
 const composeEnhancers =
   typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && process.env.NODE_ENV === 'development'
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
-const configureStore = preloadedState => {
-  const store = createStore(rootReducer, preloadedState, composeEnhancers(applyMiddleware(thunk)));
+const configureStore = (preloadedState, pathname) => {
+  const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
+    history: createHistory(pathname),
+  });
+
+  const store = createStore(
+    applyRootReducer({ router: routerReducer }),
+    preloadedState,
+    composeEnhancers(applyMiddleware(thunk, routerMiddleware)),
+  );
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -19,7 +32,10 @@ const configureStore = preloadedState => {
     });
   }
 
-  return store;
+  const history = createReduxHistory(store);
+  const reachHistory = reachify(history);
+
+  return { store, history: reachHistory };
 };
 
 export default configureStore;

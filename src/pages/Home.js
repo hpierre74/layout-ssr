@@ -4,14 +4,14 @@ import { Link } from '@reach/router';
 const Home = () => {
   return (
     <div>
+      <h1>Home</h1>
       <div>
         <ul>
           <li>
-            <Link to="/about">Home</Link>
+            <Link to="/about">About</Link>
           </li>
         </ul>
       </div>
-      <h1>Home</h1>
     </div>
   );
 };

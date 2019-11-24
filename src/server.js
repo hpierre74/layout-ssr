@@ -26,7 +26,7 @@ server
     });
 
     const preloadedState = { counter: 0 };
-    const store = configureStore(preloadedState);
+    const { store } = configureStore(preloadedState, req.url);
     const finalState = store.getState();
 
     const sheets = new ServerStyleSheets();
