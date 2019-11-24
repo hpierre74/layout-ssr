@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE, push } from 'connected-react-router';
+import { LOCATION_CHANGE, push } from 'redux-first-history';
 import { isAuth } from '../modules/auth/auth.selectors';
 
 export default store => next => action => {

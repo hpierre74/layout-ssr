@@ -13,7 +13,7 @@ import serialize from 'serialize-javascript';
 
 import App from './App';
 import configureStore from './store/configureStore';
-import theme from './utils/theme';
+import { createTheme, getStoredTheme } from './styles/theme';
 
 const serviceAccount = require('../gsa_key.json');
 
@@ -43,7 +43,7 @@ server
 
       const config = appConfig.val();
 
-      const preloadedState = { counter: 0, config };
+      const preloadedState = { config };
       const { store } = configureStore(preloadedState, req.url);
       const finalState = store.getState();
 
@@ -55,7 +55,7 @@ server
             <ChunkExtractorManager extractor={extractor}>
               <ServerLocation url={req.url}>
                 <Provider store={store}>
-                  <ThemeProvider theme={theme}>
+                  <ThemeProvider theme={createTheme(getStoredTheme(finalState))}>
                     <App />
                   </ThemeProvider>
                 </Provider>
@@ -70,7 +70,7 @@ server
       res.status(200).send(
         oneLineTrim(htmlTemplate`
       <!doctype html>
-      <html lang="">
+      <html lang="en">
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta charSet='utf-8' />
@@ -91,21 +91,25 @@ server
     `),
       );
     } catch (error) {
-      res.status(500).send(
+      if (process.env.NODE_ENV !== 'production') {
+        return res.status(500).send({ error, message: error.message });
+      }
+
+      return res.status(500).send(
         oneLineTrim(htmlTemplate`
-      <!doctype html>
-      <html lang="en">
-        <head>
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta charSet='utf-8' />
-          <title>Layout System</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-        </head>
-        <body>
-          <h1>Error: ${error.message}</h1>
-        </body>
-      </html>
-    `),
+        <!doctype html>
+        <html lang="en">
+          <head>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta charSet='utf-8' />
+            <title>Layout System</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+          </head>
+          <body>
+            <h1>Error Page</h1>
+          </body>
+        </html>
+      `),
       );
     }
   });

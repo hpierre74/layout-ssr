@@ -1,22 +1,23 @@
 import React, { Fragment } from 'react';
 import { Router } from '@reach/router';
-import loadable from '@loadable/component';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import Layout from './components/Layout';
+import NavBar from './modules/navbar/navbar.connector';
+import Admin from './pages/admin/admin.component';
+import UserRoutes from './modules/routes/userRoutes.connector';
 
-const Home = loadable(() => import('./pages/Home'));
-const About = loadable(() => import('./pages/About'));
+import Toaster from './modules/toaster/toast.connector';
 
 const App = () => (
   <Fragment>
     <CssBaseline />
-    <Layout>
-      <Router>
-        <Home exact path="/" />
-        <About exact path="/about" />
-      </Router>
-    </Layout>
+    <NavBar desktop={true}>
+      <UserRoutes />
+      <Toaster />
+    </NavBar>
+    <Router>
+      <Admin path="/admin/" />
+    </Router>
   </Fragment>
 );
 

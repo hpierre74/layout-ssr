@@ -1,6 +1,7 @@
-import React, { lazy } from 'react';
-import { Route } from '@reach/router';
-import { push } from 'connected-react-router';
+import React from 'react';
+import { push } from 'redux-first-history';
+import loadable from '@loadable/component';
+
 import Client from '../pages/client/client.connector';
 
 export const renderClientsRoutes = ({ pages, modules }) =>
@@ -8,9 +9,7 @@ export const renderClientsRoutes = ({ pages, modules }) =>
     const { component, target, path, name } = page;
     const isPageEnabled = modules[target].enabled || component === 'Home';
 
-    return isPageEnabled ? (
-      <Route key={path} name={name} exact path={path} component={props => <Client {...props} />} />
-    ) : null;
+    return isPageEnabled ? <Client key={path} name={name} path={path} /> : null;
   });
 
 export const renderAdminRoutes = ({ pages }) =>
@@ -18,19 +17,18 @@ export const renderAdminRoutes = ({ pages }) =>
     const { target, path, name, enabled } = page;
     const Component = enabled ? importAdminRoute(target) : null;
 
-    return enabled ? (
-      <Route key={path} name={name} exact path={path} component={props => <Component {...props} />} />
-    ) : null;
+    return enabled ? <Component key={path} name={name} path={path} /> : null;
   });
 
-export const importPageRoute = () => lazy(() => import(`../engine/template.engine`));
+export const importPageRoute = () => loadable(() => import(`../engine/template.engine`));
 
-export const importAdminRoute = target => lazy(() => import(`../modules/admin/${target}/${target}.connector`));
+export const importAdminRoute = target => loadable(() => import(`../modules/admin/${target}/${target}.connector`));
 
 export const renderRoutes = (pages, components) =>
-  Object.values(pages).map(page => (
-    <Route key={page.name} exact path={`${page.path}`} component={components[page.name]} />
-  ));
+  Object.values(pages).map(page => {
+    const Route = components[page.name];
+    return <Route key={page.name} exact path={`${page.path}`} />;
+  });
 
 export const navigate = destination => dispatch => dispatch(push(destination));
 

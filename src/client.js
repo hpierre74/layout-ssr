@@ -6,11 +6,12 @@ import { LocationProvider } from '@reach/router';
 
 import { ThemeProvider } from '@material-ui/styles';
 
-import theme from './utils/theme';
+// import theme from './utils/theme';
 import configureStore from './store/configureStore';
 
 import App from './App';
 import { init } from './modules/app/app.action';
+import { createTheme, getStoredTheme } from './styles/theme';
 
 const root = document.getElementById('root');
 const { store, history } = configureStore(window.__PRELOADED_STATE__);
@@ -20,7 +21,7 @@ store.dispatch(init());
 loadableReady(() => {
   hydrate(
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={createTheme(getStoredTheme(store.getState()))}>
         <LocationProvider history={history}>
           <App />
         </LocationProvider>
