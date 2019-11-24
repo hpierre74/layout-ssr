@@ -91,22 +91,26 @@ server
     `),
       );
     } catch (error) {
-      res.status(500).send({ error, message: error.message });
-      //     oneLineTrim(htmlTemplate`
-      //   <!doctype html>
-      //   <html lang="en">
-      //     <head>
-      //       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      //       <meta charSet='utf-8' />
-      //       <title>Layout System</title>
-      //       <meta name="viewport" content="width=device-width, initial-scale=1">
-      //     </head>
-      //     <body>
-      //       <h1>Error: ${error.message}</h1>
-      //     </body>
-      //   </html>
-      // `),
-      //   );
+      if (process.env.NODE_ENV !== 'production') {
+        return res.status(500).send({ error, message: error.message });
+      }
+
+      return res.status(500).send(
+        oneLineTrim(htmlTemplate`
+        <!doctype html>
+        <html lang="en">
+          <head>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta charSet='utf-8' />
+            <title>Layout System</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+          </head>
+          <body>
+            <h1>Error Page</h1>
+          </body>
+        </html>
+      `),
+      );
     }
   });
 
