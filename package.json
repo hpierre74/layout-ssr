@@ -27,7 +27,6 @@
     "firebase-admin": "^8.8.0",
     "history": "^4.9.0",
     "intersection-observer": "^0.7.0",
-    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.11",
     "lozad": "^1.9.0",
     "prop-types": "^15.7.2",
@@ -39,8 +38,7 @@
     "redux-first-history": "^4.2.5",
     "redux-thunk": "^2.3.0",
     "serialize-javascript": "^1.5.0",
-    "shortid": "^2.2.14",
-    "superagent": "^5.1.0"
+    "shortid": "^2.2.14"
   },
   "devDependencies": {
     "@loadable/babel-plugin": "^5.10.3",
