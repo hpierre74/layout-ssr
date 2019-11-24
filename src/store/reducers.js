@@ -1,10 +1,12 @@
-import { combineReducers } from "redux";
-import app from "../modules/app/app.reducer";
-import counter from "../modules/counter/counter.reducer";
+import { combineReducers } from 'redux';
+import app from '../modules/app/app.reducer';
+import counter from '../modules/counter/counter.reducer';
 
-const rootReducer = combineReducers({
-  app,
-  counter
-});
+const applyRootReducer = (reducers = {}) =>
+  combineReducers({
+    app,
+    counter,
+    ...reducers,
+  });
 
-export default rootReducer;
+export default applyRootReducer;

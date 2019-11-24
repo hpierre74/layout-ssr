@@ -2,6 +2,7 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { loadableReady } from '@loadable/component';
+import { LocationProvider } from '@reach/router';
 
 import { ThemeProvider } from '@material-ui/styles';
 
@@ -11,13 +12,15 @@ import configureStore from './store/configureStore';
 import App from './App';
 
 const root = document.getElementById('root');
-const store = configureStore(window.__PRELOADED_STATE__);
+const { store, history } = configureStore(window.__PRELOADED_STATE__);
 
 loadableReady(() => {
   hydrate(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <App />
+        <LocationProvider history={history}>
+          <App />
+        </LocationProvider>
       </ThemeProvider>
     </Provider>,
     root,
