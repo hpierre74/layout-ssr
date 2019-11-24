@@ -4,13 +4,15 @@ import { createReduxHistoryContext, reachify } from 'redux-first-history';
 import { createMemoryHistory, createBrowserHistory } from 'history';
 
 import pageContentMiddleware from '../middlewares/pageContent.middleware';
+import authMiddleware from '../middlewares/auth.middleware';
 import applyRootReducer from './reducers';
+import { isServer } from '../utils/ssr.utils';
 
 const createHistory = pathname =>
-  typeof window === 'undefined' ? createMemoryHistory({ initialEntries: [pathname] }) : createBrowserHistory();
+  isServer() ? createMemoryHistory({ initialEntries: [pathname] }) : createBrowserHistory();
 
 const composeEnhancers =
-  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && process.env.NODE_ENV === 'development'
+  !isServer() && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && process.env.NODE_ENV === 'development'
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
@@ -22,7 +24,7 @@ const configureStore = (preloadedState, pathname) => {
   const store = createStore(
     applyRootReducer({ router: routerReducer }),
     preloadedState,
-    composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware)),
+    composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware, authMiddleware)),
   );
 
   if (module.hot) {

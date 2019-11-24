@@ -5,10 +5,8 @@ import { toggleNavbar } from '../app/app.action';
 import renderOrNothing from '../../components/renderOrNothing.hoc';
 
 const mapStateToProps = ({
-  app: {
-    mobileOpen,
-    config: { modules, pages, name, general },
-  },
+  app: { mobileOpen },
+  config: { modules, pages, name, general },
   router: {
     location: { pathname },
   },
@@ -21,7 +19,4 @@ const mapStateToProps = ({
   isUser: !pathname.includes('admin'),
 });
 
-export default connect(
-  mapStateToProps,
-  { toggle: toggleNavbar },
-)(renderOrNothing(({ isUser }) => isUser, Navbar));
+export default connect(mapStateToProps, { toggle: toggleNavbar })(renderOrNothing(({ isUser }) => isUser, Navbar));
