@@ -34,6 +34,13 @@ module.exports = {
       });
     }
 
+    if (target === 'node' && !dev) {
+      appConfig.entry = path.resolve(__dirname, './src/server.js');
+      appConfig.output.filename = 'server.bundle.js';
+      appConfig.output.path = path.resolve(__dirname, './build');
+      appConfig.output.libraryTarget = 'commonjs2';
+    }
+
     appConfig.plugins = [
       ...appConfig.plugins,
       new CompressionPlugin({
