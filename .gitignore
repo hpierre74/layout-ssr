@@ -3,6 +3,8 @@
 public/static
 .directory
 
+# google service account
+gsa_key.json
 
 # eslint
 .eslintcache

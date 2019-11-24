@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'connected-react-router';
+import { LOCATION_CHANGE } from 'redux-first-history';
 
 import { getPageContent } from '../modules/pageContentManager/pageContent.action';
 import { CHANGE_LANG } from '../modules/lang/lang.actions';
@@ -21,22 +21,16 @@ export default store => next => action => {
   const {
     router: { location },
     lang: { currentLang },
-    // pageContent: { page },
-    app: {
-      config: { pages },
-    },
+    config: { pages },
   } = store.getState();
-
   next(action);
   switch (action.type) {
     case CHANGE_LANG:
       store.dispatch(getContentForRoute(pages, location.pathname, action.lang));
       break;
-
     case LOCATION_CHANGE:
       store.dispatch(getContentForRoute(pages, action.payload.location.pathname, currentLang));
       break;
-
     default:
       break;
   }

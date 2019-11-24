@@ -5,14 +5,15 @@ import '@firebase/storage';
 import '@firebase/auth';
 
 const config = {
-  apiKey: `${process.env.REACT_APP_FIREBASE_APIKEY}`,
-  authDomain: `${process.env.REACT_APP_FIREBASE_DOMAIN}`,
-  databaseURL: `${process.env.REACT_APP_FIREBASE_DB}`,
-  projectId: `${process.env.REACT_APP_FIREBASE_ID}`,
-  storageBucket: `${process.env.REACT_APP_FIREBASE_BUCKET}`,
-  messagingSenderId: `${process.env.REACT_APP_FIREBASE_MESSAGING}`,
-  appId: `${process.env.REACT_APP_FIREBASE_APP_ID}`,
+  apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
+  authDomain: `${process.env.RAZZLE_SECRET_FIREBASE_DOMAIN}`,
+  databaseURL: `${process.env.RAZZLE_SECRET_FIREBASE_DB}`,
+  projectId: `${process.env.RAZZLE_SECRET_FIREBASE_ID}`,
+  storageBucket: `${process.env.RAZZLE_SECRET_FIREBASE_BUCKET}`,
+  messagingSenderId: `${process.env.RAZZLE_SECRET_FIREBASE_MESSAGING}`,
+  appId: `${process.env.RAZZLE_SECRET_FIREBASE_APP_ID}`,
 };
+// console.log(config);
 
 firebase.initializeApp(config);
 

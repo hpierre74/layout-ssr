@@ -10,9 +10,12 @@ import theme from './utils/theme';
 import configureStore from './store/configureStore';
 
 import App from './App';
+import { init } from './modules/app/app.action';
 
 const root = document.getElementById('root');
 const { store, history } = configureStore(window.__PRELOADED_STATE__);
+
+store.dispatch(init());
 
 loadableReady(() => {
   hydrate(

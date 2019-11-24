@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { createReduxHistoryContext, reachify } from 'redux-first-history';
 import { createMemoryHistory, createBrowserHistory } from 'history';
 
+import pageContentMiddleware from '../middlewares/pageContent.middleware';
 import applyRootReducer from './reducers';
 
 const createHistory = pathname =>
@@ -21,7 +22,7 @@ const configureStore = (preloadedState, pathname) => {
   const store = createStore(
     applyRootReducer({ router: routerReducer }),
     preloadedState,
-    composeEnhancers(applyMiddleware(thunk, routerMiddleware)),
+    composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware)),
   );
 
   if (module.hot) {
