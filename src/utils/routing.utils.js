@@ -7,9 +7,10 @@ import Client from '../pages/client/client.connector';
 export const renderClientsRoutes = ({ pages, modules }) =>
   Object.values(pages).map(page => {
     const { component, target, path, name } = page;
-    const isPageEnabled = modules[target].enabled || component === 'Home';
+    const isHome = component === 'Home';
+    const isPageEnabled = modules[target].enabled || isHome;
 
-    return isPageEnabled ? <Client key={path} name={name} path={path} /> : null;
+    return isPageEnabled ? <Client key={path} name={name} path={path} default={isHome} /> : null;
   });
 
 export const renderAdminRoutes = ({ pages }) =>
@@ -22,13 +23,7 @@ export const renderAdminRoutes = ({ pages }) =>
 
 export const importPageRoute = () => loadable(() => import(`../engine/template.engine`));
 
-export const importAdminRoute = target => loadable(() => import(`../modules/admin/${target}/${target}.connector.js`));
-
-export const renderRoutes = (pages, components) =>
-  Object.values(pages).map(page => {
-    const Route = components[page.name];
-    return <Route key={page.name} exact path={`${page.path}`} />;
-  });
+export const importAdminRoute = target => loadable(() => import(`../modules/admin/${target}/${target}.connector`));
 
 export const navigate = destination => dispatch => dispatch(push(destination));
 

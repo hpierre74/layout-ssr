@@ -57,7 +57,7 @@ server
 
       const css = sheets.toString();
 
-      res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+      res.set('Cache-Control', 'public, max-age=600, s-maxage=1800');
 
       res.status(200).send(
         oneLineTrim(htmlTemplate`
