@@ -93,7 +93,7 @@ const NavBar = props => {
 NavBar.defaultProps = { children: null };
 NavBar.propTypes = {
   // theme: PropTypes.shape({}).isRequired,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array, PropTypes.node]),
   mobileOpen: PropTypes.bool.isRequired,
   desktopOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,

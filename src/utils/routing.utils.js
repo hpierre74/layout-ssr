@@ -22,7 +22,7 @@ export const renderAdminRoutes = ({ pages }) =>
 
 export const importPageRoute = () => loadable(() => import(`../engine/template.engine`));
 
-export const importAdminRoute = target => loadable(() => import(`../modules/admin/${target}/${target}.connector`));
+export const importAdminRoute = target => loadable(() => import(`../modules/admin/${target}/${target}.connector.js`));
 
 export const renderRoutes = (pages, components) =>
   Object.values(pages).map(page => {
