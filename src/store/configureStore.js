@@ -4,7 +4,6 @@ import { createReduxHistoryContext, reachify } from 'redux-first-history';
 import { createMemoryHistory, createBrowserHistory } from 'history';
 
 import pageContentMiddleware from '../middlewares/pageContent.middleware';
-import authMiddleware from '../middlewares/auth.middleware';
 import applyRootReducer from './reducers';
 import { isServer } from '../utils/ssr.utils';
 
@@ -24,7 +23,7 @@ const configureStore = (preloadedState, pathname) => {
   const store = createStore(
     applyRootReducer({ router: routerReducer }),
     preloadedState,
-    composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware, authMiddleware)),
+    composeEnhancers(applyMiddleware(thunk, routerMiddleware, pageContentMiddleware)),
   );
 
   if (module.hot) {

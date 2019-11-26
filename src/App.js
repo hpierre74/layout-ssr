@@ -16,7 +16,7 @@ const App = () => (
       <Toaster />
     </NavBar>
     <Router>
-      <Admin path="/admin/" />
+      <Admin path="admin/*" />
     </Router>
   </Fragment>
 );
