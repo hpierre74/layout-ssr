@@ -3,8 +3,6 @@ const path = require('path');
 const LoadableWebpackPlugin = require('@loadable/webpack-plugin');
 const LoadableBabelPlugin = require('@loadable/babel-plugin');
 const babelPresetRazzle = require('razzle/babel');
-const CompressionPlugin = require('compression-webpack-plugin');
-const BrotliPlugin = require('brotli-webpack-plugin');
 
 module.exports = {
   modify: (config, { dev, target }) => {
@@ -40,24 +38,6 @@ module.exports = {
       appConfig.output.path = path.resolve(__dirname, './build');
       appConfig.output.libraryTarget = 'commonjs2';
     }
-
-    appConfig.plugins = [
-      ...appConfig.plugins,
-      new CompressionPlugin({
-        filename: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: /\.js$|\.css$|\.html$/,
-        threshold: 10240,
-        minRatio: 0.8,
-        cache: true,
-      }),
-      new BrotliPlugin({
-        asset: '[path].br[query]',
-        test: /\.js$|\.css$|\.html$/,
-        threshold: 10240,
-        minRatio: 0.8,
-      }),
-    ];
 
     return appConfig;
   },

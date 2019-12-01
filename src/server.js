@@ -20,11 +20,7 @@ const server = express();
 
 server
   .disable('x-powered-by')
-  .use(
-    compression(path.join(__dirname), {
-      enableBrotli: true,
-    }),
-  )
+  .use(compression(path.join(__dirname)))
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', async (req, res) => {
     try {

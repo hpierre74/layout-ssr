@@ -7,6 +7,8 @@
     "ignore": [
       "firebase.json",
       "**/.*",
+      "**.js.map",
+      "*.js.map",
       "**/node_modules/**"
     ],
     "rewrites": [
@@ -17,7 +19,23 @@
     ]
   },
   "functions": {
-    "source": "."
+    "source": ".",
+    "ignore": [
+      "**/node_modules/**",
+      "**/src/**",
+      "**/.*",
+      "**/public/**",
+      "**.js.map",
+      "*.js.map",
+      "**.md",
+      "Dockerfile",
+      "LICENSE",
+      "**.rules",
+      "**.log",
+      "razzle.config.js",
+      "database.rules.json",
+      "gsa_key.json"
+    ]
   },
   "storage": {
     "rules": "storage.rules"
