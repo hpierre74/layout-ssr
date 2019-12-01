@@ -6,7 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import { ServerLocation } from '@reach/router';
 import { html as htmlTemplate, oneLineTrim } from 'common-tags';
-
+import Helmet from 'react-helmet';
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles';
 import serialize from 'serialize-javascript';
 import compression from 'compression';
@@ -53,22 +53,23 @@ server
 
       const css = sheets.toString();
 
+      const helmet = Helmet.renderStatic();
+
       res.set('Cache-Control', 'public, max-age=600, s-maxage=1800');
 
       res.status(200).send(
         oneLineTrim(htmlTemplate`
       <!doctype html>
-      <html lang="en">
+      <html ${helmet.htmlAttributes.toString()}>
         <head>
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta charSet='utf-8' />
-          <title>Layout System</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1">
+          ${helmet.title.toString()}
+          ${helmet.meta.toString()}
+          ${helmet.link.toString()}
           ${extractor.getLinkTags()}
           ${extractor.getStyleTags()}
           ${css ? `<style id='jss-ssr'>${css}</style>` : ''}
         </head>
-        <body>
+        <body ${helmet.bodyAttributes.toString()}>
           <div id="root">${markup}</div>
           ${extractor.getScriptTags()}
           <script>

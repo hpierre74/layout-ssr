@@ -6,7 +6,6 @@ import { renderClientsRoutes } from '../../utils/routing.utils';
 const UserRoutes = ({ modules, pages }) => <Router>{renderClientsRoutes({ pages, modules })}</Router>;
 
 UserRoutes.propTypes = {
-  initialized: PropTypes.bool.isRequired,
   modules: PropTypes.shape({}).isRequired,
   pages: PropTypes.shape({}).isRequired,
 };
