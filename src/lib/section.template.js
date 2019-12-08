@@ -15,19 +15,22 @@ const useStyles = makeStyles({
   default: {},
   admin: {
     padding: 0,
-    border: '1px solid red',
+    border: '1px dashed black',
     width: '100%',
     margin: 0,
   },
+  topLevel: {
+    borderColor: 'red',
+  },
 });
 
-const Section = ({ spacing, justify, components, isAdmin, path, id, target, ...props }) => {
+const Section = ({ spacing, justify, components, isAdmin, path, id, target, isTopLevel, ...props }) => {
   const classes = useStyles();
 
   return (
     <Row
-      className={classnames(isAdmin ? classes.admin : classes.default)}
-      {...omit(props, ['isAdmin', 'dispatch', 'sizes'])}
+      className={classnames([isAdmin ? classes.admin : classes.default, isTopLevel ? classes.topLevel : ''])}
+      {...omit(props, ['isAdmin', 'dispatch', 'sizes', 'isTopLevel'])}
       spacing={spacing}
       justify={justify}
     >
@@ -40,6 +43,7 @@ const Section = ({ spacing, justify, components, isAdmin, path, id, target, ...p
 Section.defaultProps = {
   spacing: 4,
   justify: 'center',
+  isTopLevel: false,
 };
 
 Section.propTypes = {
@@ -50,6 +54,7 @@ Section.propTypes = {
   justify: PropTypes.string,
   id: PropTypes.string.isRequired,
   components: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.array]).isRequired,
+  isTopLevel: PropTypes.bool,
 };
 
 export default connect(state => ({ isAdmin: isAuth(state) }))(Section);

@@ -2,6 +2,8 @@ import { callApi } from '../../../utils/firebase.utils';
 import { createTemplateElement, addElementProps } from '../../../engine/template.factory';
 import { showToast } from '../../toaster/toaster.action';
 
+export const TOGGLE_CONTROLS = 'cms/TOGGLE_CONTROLS';
+
 export const SET_PARENT_ELEMENT = 'cms/SET_PARENT_ELEMENT';
 export const DELETE_PARENT_ELEMENT = 'cms/DELETE_PARENT_ELEMENT';
 export const SET_CHILD_ELEMENT = 'cms/SET_CHILD_ELEMENT';
@@ -12,6 +14,8 @@ export const SET_PREVIEW_ELEMENT_PROPS = 'cms/SET_PREVIEW_ELEMENT_PROPS';
 export const STEPPER_NEXT = 'cms/STEPPER_NEXT';
 export const STEPPER_BACK = 'cms/STEPPER_BACK';
 export const STEPPER_RESET = 'cms/STEPPER_RESET';
+
+export const toggleControls = () => ({ type: TOGGLE_CONTROLS });
 
 export const stepperNext = () => ({ type: STEPPER_NEXT });
 export const stepperBack = () => ({ type: STEPPER_BACK });

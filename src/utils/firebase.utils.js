@@ -13,7 +13,6 @@ const config = {
   messagingSenderId: `${process.env.RAZZLE_SECRET_FIREBASE_MESSAGING}`,
   appId: `${process.env.RAZZLE_SECRET_FIREBASE_APP_ID}`,
 };
-// console.log(config);
 
 firebase.initializeApp(config);
 
@@ -26,7 +25,7 @@ export const callApi = (method, body) => firebase.functions().httpsCallable(meth
 export const signOut = () => auth.signOut();
 export const signIn = ({ email, password }) =>
   auth
-    .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     .then(() => firebase.auth().signInWithEmailAndPassword(email, password));
 
 export const getFile = ref => storage.ref(ref).getDownloadUrl();

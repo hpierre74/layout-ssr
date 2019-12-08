@@ -62,7 +62,7 @@ export const createTemplateElement = ({ id, path }) => ({
     alignContent: 'center',
     alignItems: 'stretch',
     container: true,
-    spacing: 16,
+    spacing: 2,
     sizes: { xs: 12, sm: 12, md: 10, lg: 10 },
     components: {
       [`${id}-section`]: {

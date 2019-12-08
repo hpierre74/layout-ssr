@@ -10,9 +10,11 @@ import {
   SET_PREVIEW_ELEMENT,
   SET_PREVIEW_ELEMENT_PROPS,
   DELETE_PARENT_ELEMENT,
+  TOGGLE_CONTROLS,
 } from './cms.action';
 
 const initialState = {
+  showControls: false,
   activeStep: 0,
   submitContentModal: false,
   previewElement: [],
@@ -70,6 +72,9 @@ export default function reducer(state = initialState, action) {
         ...state,
         activeStep: 0,
       };
+
+    case TOGGLE_CONTROLS:
+      return { ...state, showControls: !state.showControls };
 
     default:
       return state;

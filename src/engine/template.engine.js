@@ -9,15 +9,15 @@ console.log('REMOVE SHORTID GENERATE BEFORE MEP');
 
 // const replaceInDev = (prod, dev) => (process.env.NODE_ENV === 'production' ? prod : dev);
 
-export const getComponent = (index, component, path, isAdmin) => {
+export const getComponent = (index, component, path, isAdmin, isTopLevel) => {
   const Component = loadable(() => import(`../lib/${component.target}.template`));
 
-  return <Component key={`${component.id || shortid.generate()}`} path={path} isAdmin={isAdmin} {...component} />;
+  return <Component key={`${component.id || shortid.generate()}`} path={path} isAdmin={isAdmin} isTopLevel={isTopLevel} {...component} />;
 };
 
-export const getTemplate = (components, path, isAdmin) => {
+export const getTemplate = (components, path, isAdmin, isTopLevel) => {
   return components
-    ? Object.values(components).map((component, index) => getComponent(index, component, path, isAdmin))
+    ? Object.values(components).map((component, index) => getComponent(index, component, path, isAdmin, isTopLevel))
     : null;
 };
 //replaceInDev(path, shortid.generate())

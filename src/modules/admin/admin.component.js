@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Router, Link } from '@reach/router';
+import { Link } from '@reach/router';
 import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
@@ -92,7 +92,7 @@ const AdminRoutes = props => {
               mobileOpen={mobileOpen}
               toggle={handleDrawerToggle}
             >
-              <Router>{initialized && renderAdminRoutes(config)}</Router>
+              {initialized && renderAdminRoutes(config)}
             </DrawerComponent>
           </div>
         )
