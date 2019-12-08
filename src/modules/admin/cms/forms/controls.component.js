@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 // Mui
+import { makeStyles } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
 
 // Icons
 import Edit from '@material-ui/icons/Edit';
@@ -12,14 +15,13 @@ import Clear from '@material-ui/icons/Clear';
 import Add from '@material-ui/icons/Add';
 
 import { Col, Row } from '../../../../components/grid.components';
-import { makeStyles, Dialog } from '@material-ui/core';
 import Stepper from './stepper.connector';
 import DeleteModal from './delete.modal';
+import { shouldShowControls } from '../cms.selectors';
 
 const useStyles = makeStyles({
   container: {
     position: 'relative',
-    width: '200px',
   },
   typography: {
     width: '100%',
@@ -30,6 +32,7 @@ const useStyles = makeStyles({
 
 const Controls = ({ target, isAdmin, child, ...props }) => {
   const classes = useStyles(props);
+  const showControls = useSelector(shouldShowControls);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const toggleDeleteDialog = e => {
     e.preventDefault();
@@ -42,7 +45,7 @@ const Controls = ({ target, isAdmin, child, ...props }) => {
     return setIsOpen(!isOpen);
   };
 
-  return !isAdmin || window.location.pathname !== '/admin/pages' ? null : (
+  return !showControls || !isAdmin || window.location.pathname !== '/admin/pages' ? null : (
     <Row className={classes.container} id={target} alignContent="flex-end" justify="flex-end">
       <Paper
         className={classes.container}

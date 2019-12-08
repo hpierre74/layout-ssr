@@ -33,7 +33,7 @@ const Block = ({ isAdmin, path, components, sizes, id, target, ...props }) => {
       component="div"
       className={classnames(isAdmin ? classes.cardAdmin : classes.card)}
       {...sizes}
-      {...omit(props, ['component', 'container'])}
+      {...omit(props, ['component', 'container', 'isTopLevel'])}
     >
       <Controls top="-54px" left="-54px" isAdmin={isAdmin} target={target} id={id} path={path} />
       {components && getTemplate(components, path, isAdmin)}

@@ -5,12 +5,12 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import StringForm from './string.form';
 import { Row, Col } from '../../../../components/grid.components';
-import { StepContent } from '@material-ui/core';
 // import Radios from './radios.component';
 import Configurator from './configurator.component';
 
