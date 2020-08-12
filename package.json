@@ -47,7 +47,7 @@
     "redux": "^4.0.4",
     "redux-first-history": "^4.2.5",
     "redux-thunk": "^2.3.0",
-    "serialize-javascript": "^2.1.1",
+    "serialize-javascript": "^3.1.0",
     "shortid": "^2.2.14"
   },
   "devDependencies": {
